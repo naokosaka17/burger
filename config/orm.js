@@ -11,12 +11,17 @@ var queries = {
     	});
 	},
 
-	insertOne: function(callback) {
-		connection.query('INSERT INTO burgers (burger_name) VALUES (?)', [req.body.name]);
+	create: function(callback) {
+		connection.query('INSERT INTO burgers (burger_name) VALUES (?)', [req.body.name],function(err,result){
+			if (err) {
+        		throw err;
+      		}
+      		callback(result);
+    	});
 	},
 
-	updateOne: function(connection, author, quote, id, callback){
-		connection.query('UPDATE burgers SET ?, ? WHERE id = ?', [{burger: burger}, {quote: quote}, id]);
+	updateOne: function(connection, burger_name, devoured, id, callback){
+		connection.query('UPDATE burgers SET ?, ? WHERE id = ?', [{burger: burger}, {devoured: devoured}, id]);
 	}
 
 }
